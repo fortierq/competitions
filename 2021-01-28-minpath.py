@@ -5,7 +5,7 @@ from heapq import heappush, heappop
 class Solution:
     def minimumEffortPath(self, h) -> int:
         n, p = len(h), len(h[0])
-        efforts = {}
+        efforts = dict()
         F = []
             
         def edge(u, v):
