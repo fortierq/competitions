@@ -4,11 +4,10 @@ class Solution:
     def minimumEffortPath(self, h) -> int:
         n, p = len(h), len(h[0])
         efforts = [[None for _ in range(p)] for _ in range(n)]
+        F = []
             
         def edge(u, v):
             return (abs(h[u[0]][u[1]] - h[v[0]][v[1]]), v, u)
-
-        F = []
         
         def add(u, v):
             heappush(F, edge(u, v))
