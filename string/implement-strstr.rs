@@ -14,8 +14,14 @@ fn subword(m: &str, text: &str) -> i32 {
     return -1;
 }
 
+struct Solution { }
+
 impl Solution {
     pub fn str_str(haystack: String, needle: String) -> i32 {
         subword(&needle, &haystack)
     }
+}
+
+fn main() {
+    println!("{}", Solution::str_str(String::from("abababa"), String::from("bab")));
 }
