@@ -1,5 +1,5 @@
 #  https://leetcode.com/problems/binary-tree-right-side-view/
-
+#  Can also use BFS 
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -12,19 +12,15 @@ class Solution:
     def rightSideView(self, root: TreeNode):
         d = {}
 
-        def f(v, prof, pos):
+        def dfs(v, prof):
             if v:
-                if prof not in d or d[prof][0] < pos:
-                    d[prof] = (pos, v.val)
-                f(v.right, prof + 1, 2 * pos + 1)
-                f(v.left, prof + 1, 2 * pos)
+                if prof not in d:
+                    d[prof] = v.val
+                dfs(v.right, prof + 1)
+                dfs(v.left, prof + 1)
 
-        f(root, 0, 0)
-        L = list(d.values())
-        try:
-            return list(zip(*L))[1]
-        except:
-            return []
+        dfs(root, 0)
+        return [d[i] for i in range(len(d))]
 
 
 s = Solution()
