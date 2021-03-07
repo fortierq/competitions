@@ -4,31 +4,41 @@ class MyHashMap:
         """
         Initialize your data structure here.
         """
-        self.t = [-1]*1000000
+        self.sz = 1000
+        self.t = [[] for _ in range(self.sz)]
+
+    def find(self, key):
+        h = self.hachage(key)
+        for i, (k, v) in enumerate(self.t[h]):
+            if k == key:
+                return i, v
+        return -1, -1
+
+    def hachage(self, k: int):
+        return k % self.sz
 
     def put(self, key: int, value: int) -> None:
         """
         value will always be non-negative.
         """
-        self.t[key] = value
-        
+        i, _ = self.find(key)
+        h = self.hachage(key)
+        if i == -1:
+            self.t[h].append((key, value))
+        else:
+            self.t[h][i] = (key, value)
 
     def get(self, key: int) -> int:
         """
         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
         """
-        return self.t[key]
-        
+        _, v = self.find(key)
+        return v
 
     def remove(self, key: int) -> None:
         """
         Removes the mapping of the specified value key if this map contains a mapping for the key
         """
-        self.t[key] = -1
-
-
-# Your MyHashMap object will be instantiated and called as such:
-# obj = MyHashMap()
-# obj.put(key,value)
-# param_2 = obj.get(key)
-# obj.remove(key)
+        i, _ = self.find(key)
+        if i != -1:
+            self.t[self.hachage(key)][i] = (key, -1)
