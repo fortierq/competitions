@@ -3,8 +3,6 @@ from collections import Counter
 
 class Solution:
     def reorderedPowerOf2(self, N: int) -> bool:
-        def sorted_digits(n):
-            return sorted(map(int, list(str(n))))
         d = Counter(str(N))
         p = sum(d.values())
         l = np.log2(10)
