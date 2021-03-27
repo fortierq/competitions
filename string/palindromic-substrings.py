@@ -1,13 +1,14 @@
 from functools import cache
 
 class Solution:
-    def countSubstrings(self, s: str) -> int:
+    def countSubstrings(self, s):
         @cache
-        def f(i, j):
-            if i > j:
-                return 0
-            res = f(i, j - 1) + f(i + 1, j) - f(i + 1, j - 1)
-            if s[i] == s[j]:
-                res += f(i + 1, j - 1) + 1
-            return res
-        return f(0, len(s) - 1)
+        def dp(i, j):
+            if i>=j: return 1
+            return dp(i+1, j-1) if s[i]==s[j] else 0
+        
+        ans = 0
+        for i in range(len(s)):
+            for j in range(i+1):
+                ans += dp(j, i)
+        return ans
