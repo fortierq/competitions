@@ -8,8 +8,6 @@ class Solution:
         d[0] = 1
         for n in nums:
             cum_sum += n
-            a = cum_sum - k
-            if a in d:
-                res += d[a]
+            res += d[cum_sum - k]
             d[cum_sum] += 1
         return res
