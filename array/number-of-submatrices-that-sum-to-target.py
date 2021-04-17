@@ -17,5 +17,5 @@ class Solution:
         for j in range(len(M[0])):
             for i in range(j + 1):
                 a = M[:, j] - (M[:, i - 1] if i > 0 else 0)
-                res += subarraySum(a.T, target)
+                res += subarraySum(a, target)
         return res
