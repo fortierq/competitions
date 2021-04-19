@@ -1,16 +1,11 @@
-from collections import Counter
-
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        d = Counter(nums)
-        res = 0
-        while len(d) > 0:
-            d_ = Counter()
-            for k in d:
-                if k == target:
-                    res += d[k]
-                elif k < target:
-                    for n in nums:
-                        d_[k + n] += d[k]
-            d = d_
-        return res
+        dp = [0] * (1+target)
+        for num in nums:
+            if num <= target:
+                dp[num] = 1
+        for i in range(target+1):
+            for num in nums:
+                if i - num > 0:
+                    dp[i] += dp[i-num]
+        return dp[-1]
