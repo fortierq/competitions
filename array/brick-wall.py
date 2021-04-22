@@ -10,8 +10,6 @@ public:
             unsigned int sz = 0;
             for(int i=0; i < r.size() - 1; ++i) {
                 sz += r[i];
-                if(m.count(sz) == 0)
-                    m[sz] = 0;
                 m[sz]++;
             }
         }
