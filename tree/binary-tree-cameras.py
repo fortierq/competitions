@@ -1,40 +1,18 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+class Solution(object):
+    def minCameraCover(self, root):
+        def solve(node):
+            # 0: Strict ST; All nodes below this are covered, but not this one
+            # 1: Normal ST; All nodes below and incl this are covered - no camera
+            # 2: Placed camera; All nodes below this are covered, plus camera here
 
-class Solution:
-        
-    def minCameraCover(self, s: TreeNode) -> int:
-        cur = set()
-        pred = dict()
-        cover = set()
-        def aux(v):
-            is_leaf = True 
-            for child in [v.left, v.right]:
-                if child is not None:
-                    is_leaf = False
-                    pred[id(child)] = id(v)
-                    aux(child)
-            if is_leaf:
-                cur.add(id(v))
-        aux(s)
-        def effeuiller():
-            nonlocal cur, cover
-            cur2 = set()
-            for c in cur:
-                if c in pred and pred[c] not in cover:
-                    cover.add(pred[c])
-                    cur2.add(pred[c])
-            cur = cur2
-            print(cur)
-            
-        res = 0
-        effeuiller()
-        while cur:
-            res += len(cur)
-            effeuiller()
-            effeuiller()
-        return res
+            if not node: return 0, 0, float('inf')
+            L = solve(node.left)
+            R = solve(node.right)
+
+            dp0 = L[1] + R[1]
+            dp1 = min(L[2] + min(R[1:]), R[2] + min(L[1:]))
+            dp2 = 1 + min(L) + min(R)
+
+            return dp0, dp1, dp2
+
+        return min(solve(root)[1:])
