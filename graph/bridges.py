@@ -17,7 +17,7 @@ class Solution:
                     back |= dfs(w, v)
             seen[v] = 2
             back.discard(v)
-            if len(back) == 0 and pred:
+            if not back and pred:
                 bridges.append([pred, v])
             return back
         dfs(0, None)

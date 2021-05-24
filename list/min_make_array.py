@@ -4,7 +4,5 @@ import numpy as np
 
 class Solution:
     def minOperations(self, nums: List[int]) -> int:
-        tot = 0 
-        for n in nums:
-            tot += bin(n).count("1")
+        tot = sum(bin(n).count("1") for n in nums)
         return tot + max(np.int64(np.log2(np.array(nums))))

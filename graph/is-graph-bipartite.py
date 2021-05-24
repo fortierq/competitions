@@ -9,10 +9,7 @@ class Solution:
             if color[v] != -1:
                 return True
             color[v] = c
-            for w in graph[v]:
-                if not dfs(w, 1 - c):
-                    return False
-            return True
+            return all(dfs(w, 1 - c) for w in graph[v])
 
         for v in range(n):
             if color[v] == - 1 and not dfs(v, 1):

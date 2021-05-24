@@ -10,12 +10,8 @@ class Solution:
                 if b[k] > s[k]:
                     s[k] = b[k]
         for a in A:
-            universal = True
             a_ = Counter(a)
-            for k in s:
-                if a_[k] < s[k]:
-                    universal = False
-                    break
+            universal = all(a_[k] >= s[k] for k in s)
             if universal:
                 res.append(a)
         return res

@@ -7,7 +7,11 @@ def backtrack(n):
             yield list(map(lambda k: '.'*k + 'Q' + '.'*(n - k - 1), rows))
         else:
             for i in range(n):
-                if not (i in rows or j + i in diag_up or j - i in diag_down):
+                if (
+                    i not in rows
+                    and j + i not in diag_up
+                    and j - i not in diag_down
+                ):
                     rows[i] = 0
                     diag_up.add(i + j)
                     diag_down.add(j - i)

@@ -10,7 +10,7 @@ class Solution:
         for s in path.split('/'):
             if s == "..":
                 Solution.cd(res)
-            elif s != "" and s != ".":
+            elif s not in ["", "."]:
                 res.append(s)
         return '/' + '/'.join(res)
 

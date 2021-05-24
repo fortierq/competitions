@@ -6,7 +6,7 @@ class Solution:
         d = Counter(str(N))
         p = sum(d.values())
         l = np.log2(10)
-        for k in range(int((p-1)*l), int(p*l) + 1):
-            if d == Counter(str(1 << k)):
-                return True
-        return False
+        return any(
+            d == Counter(str(1 << k))
+            for k in range(int((p - 1) * l), int(p * l) + 1)
+        )

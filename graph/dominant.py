@@ -3,10 +3,6 @@
 class Solution:
     def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
         dominant = [True]*n
-        for i in range(len(edges)):
-            dominant[edges[i][1]] = False
-        L = []
-        for i in range(n):
-            if dominant[i]:
-                L.append(i)
-        return L
+        for edge in edges:
+            dominant[edge[1]] = False
+        return [i for i in range(n) if dominant[i]]
