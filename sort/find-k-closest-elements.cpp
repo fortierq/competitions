@@ -1,20 +1,11 @@
-#include <algorithm> 
-#include <stdlib.h> 
-
-class Solution {
-public:
-    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
-        vector<pair <int,int> > dist;
-        vector<int> res;
-        for(int e : arr)
-            dist.push_back(make_pair(-abs(e - x), -e));
-        make_heap(dist.begin(), dist.end());
-        for(int i=0; i < k; ++i) {
-            pop_heap(dist.begin(), dist.end());
-            res.push_back(-dist.back().second);
-            dist.pop_back();
+    vector<int> findClosestElements(vector<int>& A, int k, int x) {
+        int left = 0, right = A.size() - k;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (x - A[mid] > A[mid + k] - x)
+                left = mid + 1;
+            else
+                right = mid;
         }
-        sort(res.begin(), res.end());
-        return res;
+        return vector<int>(A.begin() + left, A.begin() + left + k);
     }
-};
