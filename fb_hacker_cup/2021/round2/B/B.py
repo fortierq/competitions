@@ -1,27 +1,44 @@
-for i_ in range(int(input())):
-    R, C, K = list(map(int, input().split()))
-    G = [["."]*C]
-    for j in range((R)):
-        G.append(list(input()))
-    G.append(["."]*C)
+from collections import defaultdict
+import sys
+ 
+# the setrecursionlimit function is
+# used to modify the default recursion
+# limit set by python. Using this,
+# we can increase the recursion limit
+# to satisfy our needs
+ 
+sys.setrecursionlimit(10**6)
 
-    def f(i_, G, K):
-        m = 0
-        L = [0]*C
-        for j in range(K):
-            for k in range(C):
-                if G[j][k] == "X":
-                    L[k] += 1
-        
-        for i in range(K, R):
-            m_ = -(i - K)
-            for j in range(C):
-                if G[i][j] == "X":
-                    L[j] += 1
-                else:
-                    if L[j] < K:
-                        m_ += 1
-            m = max(m, m_)
-        return C - m
-    
-    print("Case #{}: {}".format(i_+1, min(f(i_, G, K), f(i_, G[::-1], R + 1 - K))))
+for i in range(int(input())):
+    N = int(input())
+    G = defaultdict(list)
+    for j in range(N - 1):
+        A, B = list(map(int, input().split()))
+        G[A].append(B)
+        G[B].append(A)
+
+    F = [-1] + list(map(int, input().split()))
+
+    def dfs(r):
+        freq = set()
+        vus = set()
+        def aux(u):
+            if u not in vus: 
+                vus.add(u)
+                freq.add(F[u])
+                for v in G[u]:
+                    aux(v)
+        aux(r)
+        return freq
+
+    n = 0
+    for u in G:
+        for v in G[u]:
+            G[u].remove(v)
+            G[v].remove(u)
+            if len(dfs(u) & dfs(v)) == 0:
+                n += 1
+            else:
+                G[u].append(v)
+                G[v].append(u)
+    print("Case #{}: {}".format(i + 1, n))
