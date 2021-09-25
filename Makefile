@@ -1,8 +1,13 @@
-dir=fb_hacker_cup/2021/round1
-pw=259d69efcd9df06101442e412f15b547
+dir=fb_hacker_cup/2021/round2/B
+pw=2893ba22a1845615cb1aed684a7193e1
 
 solve:
 	cd $(dir); \
+	rm -f output test *.txt; \
 	7z e *.zip -P$(pw); \
-	input_txt=$(input); \
 	(python3 *.py < $$(echo *.txt)) > output
+
+test:
+	cd $(dir); \
+	rm -f test; \
+	python3 *.py < $$(echo *.txt) > test
