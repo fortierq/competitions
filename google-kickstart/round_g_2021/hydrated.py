@@ -1,5 +1,3 @@
-
-
 for j in range(int(input())):
     objects = []
     for _ in range(int(input())):
