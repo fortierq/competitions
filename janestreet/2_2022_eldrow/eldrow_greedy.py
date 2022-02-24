@@ -36,32 +36,24 @@ def satisfy(words, w, g):
 
 s_max, t_max, w_max = set(), None, None
 L = list(words)
-for _ in range(10):
+best = []
+while True:
     w = random.choice(L)
+    list_w = [w]
     t = random.choice(L)
     g = guess(w, t)
     s = satisfy(words, w, g)
-    if len(s) > len(s_max):
-        s_max, t_max, w_max = s, t, w
-        print(w_max, t_max, len(s))
-# for w in words:
-#     for t in words:
-#         g = guess(w, t)
-#         s = satisfy(words, w, g)
-#         if len(s) > len(s_max):
-#             print(w_max, t_max, len(s))
-#             s_max, t_max, w_max = s, t, w
-#             if len(s) > 1300: break
-
-print(w_max)
-words, t, w = s_max, t_max, w_max
-while len(words) > 1:
-    s_max = set()
-    for w in words:
+        
+    while len(s) > 1:
+        s_max = set()
+        for w in s:
             g = guess(w, t)
-            s = satisfy(words, w, g)
-            if len(s) > len(s_max):
-                s_max = s
+            s_ = satisfy(s, w, g)
+            if len(s_) > len(s_max):
+                s_max = s_
                 w_max = w
-    words = s_max
-    print(w_max)
+        s, w = s_max, w_max
+        list_w.append(w)
+    if len(list_w) > max(11, len(best)):
+        best = list_w
+        print(len(best), ','.join(best))
