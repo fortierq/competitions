@@ -1,4 +1,5 @@
 from pathlib import Path
+import random
 
 words = set()
 with open(Path(__file__).parent / 'eldrow.txt') as f:
@@ -35,14 +36,22 @@ def satisfy(words, w, g):
 
 s_max, t_max, w_max = set(), None, None
 L = list(words)
-for w in words:
-    for t in words:
-        g = guess(w, t)
-        s = satisfy(words, w, g)
-        if len(s) > len(s_max):
-            print(w_max, t_max, len(s))
-            s_max, t_max, w_max = s, t, w
-            if len(s) > 1300: break
+for _ in range(10):
+    w = random.choice(L)
+    t = random.choice(L)
+    g = guess(w, t)
+    s = satisfy(words, w, g)
+    if len(s) > len(s_max):
+        s_max, t_max, w_max = s, t, w
+        print(w_max, t_max, len(s))
+# for w in words:
+#     for t in words:
+#         g = guess(w, t)
+#         s = satisfy(words, w, g)
+#         if len(s) > len(s_max):
+#             print(w_max, t_max, len(s))
+#             s_max, t_max, w_max = s, t, w
+#             if len(s) > 1300: break
 
 print(w_max)
 words, t, w = s_max, t_max, w_max
