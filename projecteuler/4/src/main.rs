@@ -23,5 +23,5 @@ fn main() {
             }
         }
     }
-    println!("largest: {}", largest);
+    println!("largest: {largest}");
 }
