@@ -1,14 +1,8 @@
 use std::collections::HashMap;
 fn aux(k: u128, h: &mut HashMap<u128, u128>) -> u128 {
     if !h.contains_key(&k) {
-        if k % 2 == 0 {
-            let n = aux(k / 2, h);
-            h.insert(k, n + 1);
-        }
-        else {
-            let n = aux(3 * k + 1, h);
-            h.insert(k, n + 1);
-        }
+        let mut n = aux(if k % 2 == 0 { k / 2 } else { 3 * k + 1 }, h);
+        h.insert(k, n + 1);
     }
     *h.get(&k).unwrap()
 }
