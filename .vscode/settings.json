@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./leetcode/stack/validate/Cargo.toml"
+    ]
+}
